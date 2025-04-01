@@ -31,15 +31,16 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3 form-check">
+                    <!-- <div class="mb-3 form-check">
                         <input class="form-check-input border-primary" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                         <label class="form-check-label text-primary" for="remember">
                             {{ __('Remember Me') }}
                         </label>
-                    </div>
+                    </div> -->
 
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn" style="background-color: #003d80; color: #ffffff;">{{ __('Login') }}</button>
+                        <a class="btn btn-link text-decoration-none" style="color:rgb(43, 128, 0);" href="{{ route('register') }}">{{ __('Already Have Account?') }}</a>
                         @if (Route::has('password.request'))
                             <a class="btn btn-link text-decoration-none" style="color: #003d80;" href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
                         @endif

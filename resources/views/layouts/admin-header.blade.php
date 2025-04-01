@@ -24,101 +24,166 @@
     <style>
         body {
             font-family: 'Nunito', sans-serif;
+            background-color: #F4F9F9;
         }
 
+        /* Navbar Styling */
         .navbar-brand {
-            color: #1565C0;
+            color: #FF6F61;
             font-weight: bold;
             font-size: 1.5rem;
         }
 
         .navbar-dark {
-            background-color: #b3d9ff; /* Light blue for navbar */
+            background: linear-gradient(to right, #A8DADC, #457B9D);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .navbar-dark .navbar-brand {
-            color: #1565C0; /* Dark blue for branding */
+            color: #FF6F61;
             font-weight: bold;
         }
 
         .navbar-dark .navbar-brand:hover {
-            color: #003d80; /* Darker blue on hover */
+            color: #E63946;
         }
 
         .navbar-dark .nav-link {
-            color: #1565C0; /* Dark blue for links */
+            color: #FF6F61;
         }
 
         .navbar-dark .nav-link:hover {
-            color: #003d80; /* Darker blue on hover */
+            color: #E63946;
         }
 
+        /* Sidebar Styling */
         .sidebar {
             width: 250px;
             position: fixed;
-            top: 56px; /* height of navbar */
+            top: 56px;
             left: 0;
             height: calc(100% - 56px);
-            background: #E3F2FD; /* Lightest blue for sidebar */
+            background: linear-gradient(to bottom, #F1FAEE, #A8DADC);
             padding-top: 20px;
             overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            z-index: 100;
         }
 
         .sidebar a {
-            color: #1565C0; /* Dark blue for sidebar links */
-            padding: 10px 15px;
+            color: #457B9D;
+            padding: 12px 20px;
+            margin: 4px 10px;
             display: block;
             text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 600;
         }
 
         .sidebar a:hover {
-            background: #BBDEFB; /* Slightly darker blue on hover */
+            background: #A8DADC;
+            transform: translateX(5px);
         }
 
-        .user-avatar {
-            width: 35px;
-            height: 35px;
-            background-color: #E3F2FD; /* Light blue for avatar */
-            color: #1565C0; /* Dark blue for text */
-            font-weight: bold;
+        .sidebar a.active {
+            background: #457B9D;
+            color: white;
+        }
+
+        .sidebar i {
+            margin-right: 10px;
+            width: 24px;
             text-align: center;
-            border-radius: 50%;
-            line-height: 35px;
         }
 
+        /* User Avatar */
+        .user-dropdown img {
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .dropdown-item {
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin: 5px;
+            transition: all 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background-color: #F1FAEE;
+            transform: translateX(5px);
+        }
+
+        /* Main Content Area */
         main {
             margin-left: 250px;
-            padding: 80px 30px 30px 30px; /* Space below navbar */
+            padding: 80px 30px 30px 30px;
             min-height: 100vh;
-            background-color: #F8F9FA; /* Light gray for main content */
+            background-color: #F4F9F9;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding-top: 10px;
+            }
+            
+            .sidebar a {
+                padding: 12px 5px;
+                margin: 5px;
+                text-align: center;
+            }
+            
+            .sidebar a span {
+                display: none;
+            }
+            
+            .sidebar i {
+                margin-right: 0;
+                font-size: 20px;
+            }
+            
+            main {
+                margin-left: 70px;
+                padding: 70px 15px 15px 15px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark fixed-top px-3">
+<nav class="navbar navbar-dark fixed-top px-3">
         <div class="container-fluid d-flex justify-content-between">
             <a class="navbar-brand fw-bold">
-                <i class="bi bi-bag-heart"></i> SquishIT Admin
+                <i class="bi bi-palette"></i> ArtiMart Admin Panel
             </a>
 
             <div class="d-flex align-items-center">
-                <div class="dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center text-dark" href="#"
+                <div class="dropdown user-dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center text-dark rounded-pill bg-white shadow-sm py-1 px-3" href="#"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="Profile Image"
                             class="rounded-circle" width="40" height="40">
-                        <span class="ms-2">{{ Auth::user()->name }}</span>
+                        <span class="ms-2 fw-semibold">{{ Auth::user()->name }}</span>
                     </a>
 
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
                         <li>
                             <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                <i class="bi bi-person-circle"></i> Profile
+                                <i class="bi bi-person-circle text-primary"></i> Profile
                             </a>
                         </li>
+                        <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right"></i> Logout
                             </a>
@@ -133,12 +198,24 @@
     </nav>
 
     <div class="sidebar">
-        <a href="{{ route('dashboard.index') }}"><i class="bi bi-house"></i> Dashboard</a>
-        <a href="{{ route('admin.orders') }}"><i class="bi bi-card-list"></i> Orders</a>
-        <a href="{{ route('admin.users') }}"><i class="bi bi-people"></i> Users</a>
-        <a href="{{ route('admin.categories') }}"><i class="bi bi-tags"></i> Categories</a> 
-        <a href="{{ route('admin.items') }}"><i class="bi bi-box"></i> Items</a>
-        <a href="{{ route('admin.reviews') }}"><i class="bi bi-chat-left-text"></i> Reviews</a>
+        <a href="{{ route('dashboard.index') }}" class="{{ Request::routeIs('dashboard.index') ? 'active' : '' }}">
+            <i class="bi bi-house"></i> <span>DASHBOARD</span>
+        </a>
+        <a href="{{ route('admin.items') }}" class="{{ Request::routeIs('admin.items') ? 'active' : '' }}">
+            <i class="bi bi-box"></i> <span>PRODUCT</span>
+        </a>
+        <a href="{{ route('admin.orders') }}" class="{{ Request::routeIs('admin.orders') ? 'active' : '' }}">
+            <i class="bi bi-card-list"></i> <span>ORDER</span>
+        </a>
+        <a href="{{ route('admin.users') }}" class="{{ Request::routeIs('admin.users') ? 'active' : '' }}">
+            <i class="bi bi-people"></i> <span>USER</span>
+        </a>
+        <a href="{{ route('admin.reviews') }}" class="{{ Request::routeIs('admin.reviews') ? 'active' : '' }}">
+            <i class="bi bi-chat-left-text"></i> <span>FEEDBACK</span>
+        </a>
+        <a href="{{ route('admin.categories') }}" class="{{ Request::routeIs('admin.categories') ? 'active' : '' }}">
+            <i class="bi bi-tags"></i> <span>CATEGORY</span>
+        </a> 
     </div>
 
     <main>

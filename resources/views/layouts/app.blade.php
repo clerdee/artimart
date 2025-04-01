@@ -89,7 +89,7 @@
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-                    <i class="bi bi-bag-heart"></i> SquishIT
+                <i class="bi bi-palette"></i> ArtiMart
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -103,7 +103,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('getCart') }}">
-                                <i class="bi bi-cart3"></i> Cart
+                                <i class="bi bi-cart3"></i> Shopping Cart
                                 <span class="badge bg-warning text-dark">
                                     {{ session()->has('cart') ? count(session()->get('cart')->items) : 0 }}
                                 </span>
