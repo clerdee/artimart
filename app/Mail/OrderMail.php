@@ -56,8 +56,8 @@ class OrderMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('noreply@plushit.test', 'Plush-IT'),
-            subject: 'Your Order Receipt from Plush-IT',
+            from: new Address('noreply@artimart.test', 'ArtiMarTeam'),
+            subject: 'Your Order Receipt from ArtiMart',
         );
     }
 
