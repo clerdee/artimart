@@ -1,164 +1,262 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
-@section('content')
-<div class="container" style="padding-top: 3rem;">
-    <div class="col-md-8 mx-auto">
-        <div class="card shadow-lg border-0 rounded-4">
-            <div class="card-header text-center" style="background-color: #b3d9ff; color: #003d80; font-weight: bold; font-size: 1.5rem;">
-                {{ __('Register') }}
-            </div>
+@section('title', 'Register - ArtiMart')
 
-            <div class="card-body">
-                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" id="registrationForm">
-                    @csrf
+@section('body')
+<header class="py-5 bg-gradient" style="background: linear-gradient(135deg, #ffecb3 0%, #fff8e1 100%);">
+    <div class="container text-center">
+        <h1 class="fw-bold" style="color: #e65100;">Welcome to ArtiMart</h1>
+        <p class="lead">Where Creativity Meets Quality</p>
+    </div>
+</header>
 
-                    <!-- Step 1: Account Information -->
-                    <div id="step1">
-                        <h5 class="mb-4 text-primary">Account Information</h5>
-                        
-                        <!-- Email -->
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end text-primary">{{ __('Email') }}</label>
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control border-primary @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autofocus>
+@include('layouts.flash-messages')
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card border-0 shadow-sm rounded-lg overflow-hidden">
+                <div class="card-header bg-orange-50 border-0 p-4 text-center">
+                    <h4 class="fw-bold mb-0" style="color: #e65100;">
+                        <i class="fas fa-user-plus me-2"></i>{{ __('Create Account') }}
+                    </h4>
+                </div>
+                
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" id="registrationForm">
+                        @csrf
+
+                        <!-- Step 1: Account Information -->
+                        <div id="step1">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="badge bg-warning text-dark rounded-pill px-3 py-2 me-2">1</div>
+                                <h5 class="fw-bold mb-0" style="color: #e65100;">Account Information</h5>
+                            </div>
+                            
+                            <!-- Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-medium">{{ __('Email Address') }}</label>
+                                <input id="email" type="email" 
+                                    class="form-control rounded-pill border-light bg-light @error('email') is-invalid @enderror" 
+                                    name="email" value="{{ old('email') }}" 
+                                    required autofocus>
+                                
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
-                        </div>
 
-                        <!-- Password -->
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end text-primary">{{ __('Password') }}</label>
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control border-primary @error('password') is-invalid @enderror" name="password" required>
+                            <!-- Password -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label fw-medium">{{ __('Password') }}</label>
+                                <input id="password" type="password" 
+                                    class="form-control rounded-pill border-light bg-light @error('password') is-invalid @enderror" 
+                                    name="password" required>
+                                
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
-                        </div>
 
-                        <!-- Confirm Password -->
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end text-primary">{{ __('Confirm Password') }}</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control border-primary" name="password_confirmation" required>
+                            <!-- Confirm Password -->
+                            <div class="mb-4">
+                                <label for="password-confirm" class="form-label fw-medium">{{ __('Confirm Password') }}</label>
+                                <input id="password-confirm" type="password" 
+                                    class="form-control rounded-pill border-light bg-light" 
+                                    name="password_confirmation" required>
                             </div>
-                        </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="button" class="btn btn-primary w-100" onclick="nextStep()">
-                                    Continue <i class="bi bi-arrow-right"></i>
+                            <div class="d-grid">
+                                <button type="button" class="btn btn-warning rounded-pill text-white fw-medium py-2" onclick="nextStep()">
+                                    <i class="fas fa-arrow-right me-2"></i>Continue
                                 </button>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Step 2: Personal Information -->
-                    <div id="step2" style="display: none;">
-                        <h5 class="mb-4 text-primary">Personal Information</h5>
-                        
-                        <!-- Profile Image -->
-                        <div class="row mb-3">
-                            <label for="profile_image" class="col-md-4 col-form-label text-md-end text-primary">
-                                <i class="bi bi-person-circle"></i> {{ __('Profile Image') }}
-                            </label>
-                            <div class="col-md-6">
-                                <input id="profile_image" type="file" class="form-control border-primary @error('profile_image') is-invalid @enderror" name="profile_image">
+                        <!-- Step 2: Personal Information -->
+                        <div id="step2" style="display: none;">
+                            <div class="d-flex align-items-center mb-4">
+                                <div class="badge bg-warning text-dark rounded-pill px-3 py-2 me-2">2</div>
+                                <h5 class="fw-bold mb-0" style="color: #e65100;">Personal Information</h5>
+                            </div>
+                            
+                            <!-- Profile Image -->
+                            <div class="mb-4">
+                                <label for="profile_image" class="form-label fw-medium">
+                                    <i class="fas fa-user-circle me-1"></i> {{ __('Profile Image') }}
+                                </label>
+                                <input id="profile_image" type="file" 
+                                    class="form-control rounded-pill border-light bg-light @error('profile_image') is-invalid @enderror" 
+                                    name="profile_image">
+                                
                                 @error('profile_image')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
-                        </div>
+                            
+                            <div class="row g-3">
+                                <!-- Title -->
+                                <div class="col-md-3">
+                                    <label for="title" class="form-label fw-medium">{{ __('Title') }}</label>
+                                    <select id="title" 
+                                        class="form-select rounded-pill border-light bg-light @error('title') is-invalid @enderror" 
+                                        name="title" required>
+                                        <option value="Mr." {{ old('title') == 'Mr.' ? 'selected' : '' }}>Mr.</option>
+                                        <option value="Mrs." {{ old('title') == 'Mrs.' ? 'selected' : '' }}>Mrs.</option>
+                                        <option value="Ms." {{ old('title') == 'Ms.' ? 'selected' : '' }}>Ms.</option>
+                                        <option value="Mx." {{ old('title') == 'Mx.' ? 'selected' : '' }}>Mx.</option>
+                                    </select>
+                                    
+                                    @error('title')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
-                        <!-- Title -->
-                        <div class="row mb-3">
-                            <label for="title" class="col-md-4 col-form-label text-md-end text-primary">{{ __('Title') }}</label>
-                            <div class="col-md-6">
-                                <select id="title" class="form-control border-primary @error('title') is-invalid @enderror" name="title" required>
-                                    <option value="Mr." {{ old('title') == 'Mr.' ? 'selected' : '' }}>Mr.</option>
-                                    <option value="Mrs." {{ old('title') == 'Mrs.' ? 'selected' : '' }}>Mrs.</option>
-                                    <option value="Ms." {{ old('title') == 'Ms.' ? 'selected' : '' }}>Ms.</option>
-                                    <option value="Mx." {{ old('title') == 'Mx.' ? 'selected' : '' }}>Mx.</option>
-                                </select>
-                                @error('title')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                @enderror
+                                <!-- First Name -->
+                                <div class="col-md-4">
+                                    <label for="fname" class="form-label fw-medium">{{ __('First Name') }}</label>
+                                    <input id="fname" type="text" 
+                                        class="form-control rounded-pill border-light bg-light @error('fname') is-invalid @enderror" 
+                                        name="fname" value="{{ old('fname') }}" required>
+                                    
+                                    @error('fname')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="col-md-5">
+                                    <label for="lname" class="form-label fw-medium">{{ __('Last Name') }}</label>
+                                    <input id="lname" type="text" 
+                                        class="form-control rounded-pill border-light bg-light @error('lname') is-invalid @enderror" 
+                                        name="lname" value="{{ old('lname') }}" required>
+                                    
+                                    @error('lname')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-
-                        <!-- First Name -->
-                        <div class="row mb-3">
-                            <label for="fname" class="col-md-4 col-form-label text-md-end text-primary">{{ __('First Name') }}</label>
-                            <div class="col-md-6">
-                                <input id="fname" type="text" class="form-control border-primary @error('fname') is-invalid @enderror" name="fname" value="{{ old('fname') }}" required>
-                                @error('fname')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                @enderror
+                            
+                            <div class="row g-3 mt-1">
+                                <!-- Address -->
+                                <div class="col-md-12">
+                                    <label for="addressline" class="form-label fw-medium">{{ __('Address') }}</label>
+                                    <input id="addressline" type="text" 
+                                        class="form-control rounded-pill border-light bg-light @error('addressline') is-invalid @enderror" 
+                                        name="addressline" value="{{ old('addressline') }}" required>
+                                    
+                                    @error('addressline')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                            
+                            <div class="row g-3 mt-1">
+                                <!-- Town -->
+                                <div class="col-md-6">
+                                    <label for="town" class="form-label fw-medium">{{ __('Town/City') }}</label>
+                                    <input id="town" type="text" 
+                                        class="form-control rounded-pill border-light bg-light @error('town') is-invalid @enderror" 
+                                        name="town" value="{{ old('town') }}" required>
+                                    
+                                    @error('town')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
-                        <!-- Last Name -->
-                        <div class="row mb-3">
-                            <label for="lname" class="col-md-4 col-form-label text-md-end text-primary">{{ __('Last Name') }}</label>
-                            <div class="col-md-6">
-                                <input id="lname" type="text" class="form-control border-primary @error('lname') is-invalid @enderror" name="lname" value="{{ old('lname') }}" required>
-                                @error('lname')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                @enderror
+                                <!-- Phone -->
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label fw-medium">{{ __('Phone Number') }}</label>
+                                    <input id="phone" type="text" 
+                                        class="form-control rounded-pill border-light bg-light @error('phone') is-invalid @enderror" 
+                                        name="phone" value="{{ old('phone') }}" required>
+                                    
+                                    @error('phone')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Address -->
-                        <div class="row mb-3">
-                            <label for="addressline" class="col-md-4 col-form-label text-md-end text-primary">{{ __('Address') }}</label>
-                            <div class="col-md-6">
-                                <input id="addressline" type="text" class="form-control border-primary @error('addressline') is-invalid @enderror" name="addressline" value="{{ old('addressline') }}" required>
-                                @error('addressline')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- Town -->
-                        <div class="row mb-3">
-                            <label for="town" class="col-md-4 col-form-label text-md-end text-primary">{{ __('Town/City') }}</label>
-                            <div class="col-md-6">
-                                <input id="town" type="text" class="form-control border-primary @error('town') is-invalid @enderror" name="town" value="{{ old('town') }}" required>
-                                @error('town')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <!-- Phone -->
-                        <div class="row mb-3">
-                            <label for="phone" class="col-md-4 col-form-label text-md-end text-primary">{{ __('Phone Number') }}</label>
-                            <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control border-primary @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required>
-                                @error('phone')
-                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4 d-flex justify-content-between">
-                                <button type="button" class="btn btn-outline-primary" onclick="prevStep()">
-                                    <i class="bi bi-arrow-left"></i> Back
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-outline-secondary rounded-pill px-4" onclick="prevStep()">
+                                    <i class="fas fa-arrow-left me-2"></i>Back
                                 </button>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="bi bi-check-circle"></i> {{ __('Register') }}
+                                <button type="submit" class="btn btn-warning rounded-pill text-white fw-medium px-4">
+                                    <i class="fas fa-check-circle me-2"></i>{{ __('Complete Registration') }}
                                 </button>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                
+                <div class="card-footer bg-light border-0 p-4 text-center">
+                    <p class="mb-0">
+                        Already have an account? 
+                        <a href="{{ route('login') }}" class="text-decoration-none" style="color: #e65100;">
+                            <i class="fas fa-sign-in-alt me-1"></i>Login here
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .btn-warning.text-white {
+        color: #fff !important;
+        background-color: #e65100;
+        border-color: #e65100;
+    }
+    
+    .btn-warning.text-white:hover {
+        background-color: #d84315;
+        border-color: #d84315;
+    }
+    
+    .bg-orange-50 {
+        background-color: #fff3e0;
+    }
+    
+    /* Progress indicator */
+    .badge.bg-warning {
+        background-color: #e65100 !important;
+    }
+    
+    /* Animation for card */
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* Form focus styles */
+    .form-control:focus, .form-select:focus {
+        border-color: #ffb74d;
+        box-shadow: 0 0 0 0.25rem rgba(255, 183, 77, 0.25);
+    }
+</style>
 
 <script>
     function nextStep() {
