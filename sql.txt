@@ -64,10 +64,6 @@ CREATE TABLE `customer` (
 --
 -- Dumping data for table `customer`
 --
-
-INSERT INTO `customer` (`customer_id`, `title`, `fname`, `lname`, `addressline`, `town`, `phone`, `user_id`) VALUES
-(1, 'Ms.', 'First', 'Admin', 'Malacanang Village, 31 Pres.M.L.Quezon, Manila, Metro Manila, Philippines', 'Parañaque City', '09669308011', 1);
-
 -- --------------------------------------------------------
 
 --
