@@ -52,7 +52,7 @@ class OrderUpdate extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('noreply@plushit.test', 'Plush-IT'),
+            from: new Address('noreply@artimart.test', 'ArtiMarTeam'),
             subject: 'Your Order Status Has Been Updated'
         );
     }
